@@ -29,8 +29,8 @@ namespace ReClassNET.Forms
 				Program.Settings.NameColor = Color.LightSteelBlue;
 				Program.Settings.SelectedColor = ForegroundColor;
 
-				this.BackColor = BackgrounColor;
 				this.ForeColor = Color.White;
+				this.BackColor = BackgrounColor;
 
 				this.statusStrip.BackColor = BackgrounColor;
 
@@ -41,13 +41,13 @@ namespace ReClassNET.Forms
 				//open, save, new class, ect...
 				foreach (var item in this.toolStrip.Items.OfType<ToolStripDropDownButton>())
 				{
-					item.BackColor = BackgrounColor;
 					item.ForeColor = Color.White;
+					item.BackColor = BackgrounColor;
 
 					foreach (var sub_item in item.DropDownItems.OfType<ToolStripMenuItem>())
 					{
-						sub_item.BackColor = BackgrounColor;
 						sub_item.ForeColor = Color.White;
+						sub_item.BackColor = BackgrounColor;
 					}
 				}
 
@@ -65,16 +65,34 @@ namespace ReClassNET.Forms
 					//change sub items like Attach to Process...
 					foreach (var sub_item in item.DropDownItems.OfType<ToolStripItem>())
 					{
-						sub_item.BackColor = BackgrounColor;
 						sub_item.ForeColor = Color.White;
+						sub_item.BackColor = BackgrounColor;
 					}
 				}
 
 				//Classes, Enums, ect...
 				foreach (var item in this.projectView.Controls.OfType<Control>())
 				{
-					item.BackColor = BackgrounColor;
 					item.ForeColor = Color.White;
+					item.BackColor = BackgrounColor;
+				}
+
+				this.selectedNodeContextMenuStrip.BackColor = BackgrounColor;
+				//Last time promise...
+				if (this.selectedNodeContextMenuStrip.Renderer is not ToolStripCustomRenderer)
+					this.selectedNodeContextMenuStrip.Renderer = new ToolStripCustomRenderer();
+				//Right click memory viewer
+				foreach (var item in this.selectedNodeContextMenuStrip.Items.OfType<ToolStripMenuItem>())
+				{
+					item.ForeColor = Color.White;
+					item.BackColor = BackgrounColor;
+
+					//change sub items like Attach to Process...
+					foreach (var sub_item in item.DropDownItems.OfType<ToolStripItem>())
+					{
+						sub_item.ForeColor = Color.White;
+						sub_item.BackColor = BackgrounColor;
+					}
 				}
 
 				#region Icon resizing
@@ -135,26 +153,56 @@ namespace ReClassNET.Forms
 				this.statusStrip.BackColor = StatusStrip.DefaultBackColor;
 
 				this.toolStrip.BackColor = ToolStrip.DefaultBackColor;
+				if (this.toolStrip.Renderer is ToolStripCustomRenderer)
+					this.toolStrip.Renderer = new ToolStripProfessionalRenderer();
 				//open, save, new class, ect...
 				foreach (var item in this.toolStrip.Items.OfType<ToolStripDropDownButton>())
 				{
 					item.ForeColor = Color.Black;
 					item.BackColor = Control.DefaultBackColor;
+					foreach (var sub_item in item.DropDownItems.OfType<ToolStripMenuItem>())
+					{
+						sub_item.ForeColor = Color.Black;
+						sub_item.BackColor = Control.DefaultBackColor;
+					}
 				}
 
 				this.mainMenuStrip.BackColor = MenuStrip.DefaultBackColor;
+				if (this.mainMenuStrip.Renderer is ToolStripCustomRenderer)
+					this.mainMenuStrip.Renderer = new ToolStripProfessionalRenderer();
 				//File, Process, ect...
 				foreach (var item in this.mainMenuStrip.Items.OfType<ToolStripMenuItem>())
 				{
 					item.ForeColor = Color.Black;
 					item.BackColor = Control.DefaultBackColor;
+					foreach (var sub_item in item.DropDownItems.OfType<ToolStripItem>())
+					{
+						sub_item.ForeColor = Color.Black;
+						sub_item.BackColor = Control.DefaultBackColor;
+					}
 				}
 
 				//Classes, Enums, ect...
 				foreach (var item in this.projectView.Controls.OfType<Control>())
 				{
-					item.BackColor = Control.DefaultBackColor;
 					item.ForeColor = Color.Black;
+					item.BackColor = Control.DefaultBackColor;
+				}
+
+				if (this.selectedNodeContextMenuStrip.Renderer is ToolStripCustomRenderer)
+					this.selectedNodeContextMenuStrip.Renderer = new ToolStripProfessionalRenderer();
+				//Right click memory viewer
+				foreach (var item in this.selectedNodeContextMenuStrip.Items.OfType<ToolStripMenuItem>())
+				{
+					item.ForeColor = Color.Black;
+					item.BackColor = Control.DefaultBackColor;
+
+					//change sub items like Attach to Process...
+					foreach (var sub_item in item.DropDownItems.OfType<ToolStripItem>())
+					{
+						sub_item.ForeColor = Color.Black;
+						sub_item.BackColor = Control.DefaultBackColor;
+					}
 				}
 
 				this.toolStrip.ImageScalingSize = new Size((int)(this.toolStrip.ImageScalingSize.Width / 1.5), (int)(this.toolStrip.ImageScalingSize.Height / 1.5));
@@ -243,15 +291,13 @@ internal class NamelessTheme
 
 		protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
 		{
+			var brush = new SolidBrush(BackgrounColor);
+
+			// Customize the background color when the item is selected, pressed
 			if (e.Item.Selected || e.Item.Pressed)
-			{
-				// Customize the background color when the item is selected, pressed, or the drop-down is visible
-				e.Graphics.FillRectangle(new SolidBrush(SelectedColor), e.Item.ContentRectangle);
-			}
-			else
-			{
-				base.OnRenderMenuItemBackground(e);
-			}
+				brush = new SolidBrush(SelectedColor);
+
+			e.Graphics.FillRectangle(brush, e.Item.ContentRectangle);
 		}
 	}
 }
