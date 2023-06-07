@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -100,6 +101,9 @@ namespace ReClassNET.Forms
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
+
+			//@HOOK
+			NamelessTheme.Init();
 
 			GlobalWindowManager.AddWindow(this);
 
@@ -1050,6 +1054,11 @@ namespace ReClassNET.Forms
 				args.Node = classNode;
 				args.BaseAddress = address;
 			}
+		}
+
+		private void switchThemeToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SwitchTheme();
 		}
 	}
 }

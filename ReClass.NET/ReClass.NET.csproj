@@ -389,6 +389,9 @@
       <DependentUpon>MemoryViewControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\CustomToolStripProfessionalRenderer.cs" />
+    <Compile Include="UI\NamelessTheme.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UI\NodeTypesBuilder.cs" />
     <Compile Include="Controls\PlaceholderTextBox.cs">
       <SubType>Component</SubType>
