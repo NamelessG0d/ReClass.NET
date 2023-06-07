@@ -626,7 +626,7 @@ namespace ReClassNET.CodeGenerator
 						sb.Append(')');
 					}
 
-					sb.Append($"[{arrayNode.Count}]");
+					sb.Append($"[{arrayNode.Count:X04}]");
 
 					lastWrapperNode = arrayNode;
 					currentNode = arrayNode.InnerNode;

@@ -291,6 +291,8 @@ internal class NamelessTheme
 
 		protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
 		{
+			base.OnRenderMenuItemBackground(e);
+
 			var brush = new SolidBrush(BackgrounColor);
 
 			// Customize the background color when the item is selected, pressed
