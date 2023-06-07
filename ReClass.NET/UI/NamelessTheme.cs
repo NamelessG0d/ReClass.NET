@@ -36,8 +36,8 @@ namespace ReClassNET.Forms
 
 				this.toolStrip.BackColor = BackgrounColor;
 				//Coming from C++, this is making me cringe, so lets cringe together
-				if (this.toolStrip.Renderer is not ToolStripCustomRenderer)
-					this.toolStrip.Renderer = new ToolStripCustomRenderer();
+				if (this.toolStrip.Renderer is not ToolStripDarkRenderer)
+					this.toolStrip.Renderer = new ToolStripDarkRenderer();
 				//open, save, new class, ect...
 				foreach (var item in this.toolStrip.Items.OfType<ToolStripDropDownButton>())
 				{
@@ -53,8 +53,8 @@ namespace ReClassNET.Forms
 
 				this.mainMenuStrip.BackColor = BackgrounColor;
 				//This is painful...
-				if (this.mainMenuStrip.Renderer is not ToolStripCustomRenderer)
-					this.mainMenuStrip.Renderer = new ToolStripCustomRenderer();
+				if (this.mainMenuStrip.Renderer is not ToolStripDarkRenderer)
+					this.mainMenuStrip.Renderer = new ToolStripDarkRenderer();
 
 				//File, Process, ect...
 				foreach (var item in this.mainMenuStrip.Items.OfType<ToolStripMenuItem>())
@@ -79,8 +79,8 @@ namespace ReClassNET.Forms
 
 				this.selectedNodeContextMenuStrip.BackColor = BackgrounColor;
 				//Last time promise...
-				if (this.selectedNodeContextMenuStrip.Renderer is not ToolStripCustomRenderer)
-					this.selectedNodeContextMenuStrip.Renderer = new ToolStripCustomRenderer();
+				if (this.selectedNodeContextMenuStrip.Renderer is not ToolStripDarkRenderer)
+					this.selectedNodeContextMenuStrip.Renderer = new ToolStripDarkRenderer();
 				//Right click memory viewer
 				foreach (var item in this.selectedNodeContextMenuStrip.Items.OfType<ToolStripMenuItem>())
 				{
@@ -95,15 +95,18 @@ namespace ReClassNET.Forms
 					}
 				}
 
+				this.attachToProcessToolStripSplitButton.ForeColor = Color.White;
+				this.attachToProcessToolStripSplitButton.BackColor = BackgrounColor;
+
 				#region Icon resizing
 				this.toolStrip.AutoSize = false;
-				this.toolStrip.Height = (int)(this.toolStrip.Height * 1.5);
+				this.toolStrip.Height = (int)(this.toolStrip.Height * 1.4);
 
 				//Retarded hack, if button not rendered, size all fucked up
 				var current_size = Size.Width;
 				this.Size = new Size(2314, Size.Height);
 
-				#region Snippet if you wanted to resize properly the image but no-need...
+				#region Snippet if you wanted to resize the image itself but no-need...
 				//var icon_width = 0;
 				//var icon_height = 0;
 				//foreach (ToolStripItem item in this.toolStrip.Items.OfType<ToolStripButton>())
@@ -131,8 +134,8 @@ namespace ReClassNET.Forms
 				//change toolstrip's ImageScalingSize property 
 				this.toolStrip.ImageScalingSize
 					= new Size(
-						(int)(this.toolStrip.ImageScalingSize.Width * 1.5),
-						(int)(this.toolStrip.ImageScalingSize.Height * 1.5)
+						(int)(this.toolStrip.ImageScalingSize.Width * 1.4),
+						(int)(this.toolStrip.ImageScalingSize.Height * 1.4)
 					);
 
 				//Reversing of the retarded hack
@@ -153,7 +156,7 @@ namespace ReClassNET.Forms
 				this.statusStrip.BackColor = StatusStrip.DefaultBackColor;
 
 				this.toolStrip.BackColor = ToolStrip.DefaultBackColor;
-				if (this.toolStrip.Renderer is ToolStripCustomRenderer)
+				if (this.toolStrip.Renderer is ToolStripDarkRenderer)
 					this.toolStrip.Renderer = new ToolStripProfessionalRenderer();
 				//open, save, new class, ect...
 				foreach (var item in this.toolStrip.Items.OfType<ToolStripDropDownButton>())
@@ -168,7 +171,7 @@ namespace ReClassNET.Forms
 				}
 
 				this.mainMenuStrip.BackColor = MenuStrip.DefaultBackColor;
-				if (this.mainMenuStrip.Renderer is ToolStripCustomRenderer)
+				if (this.mainMenuStrip.Renderer is ToolStripDarkRenderer)
 					this.mainMenuStrip.Renderer = new ToolStripProfessionalRenderer();
 				//File, Process, ect...
 				foreach (var item in this.mainMenuStrip.Items.OfType<ToolStripMenuItem>())
@@ -189,7 +192,8 @@ namespace ReClassNET.Forms
 					item.BackColor = Control.DefaultBackColor;
 				}
 
-				if (this.selectedNodeContextMenuStrip.Renderer is ToolStripCustomRenderer)
+				this.selectedNodeContextMenuStrip.BackColor = Control.DefaultBackColor;
+				if (this.selectedNodeContextMenuStrip.Renderer is ToolStripDarkRenderer)
 					this.selectedNodeContextMenuStrip.Renderer = new ToolStripProfessionalRenderer();
 				//Right click memory viewer
 				foreach (var item in this.selectedNodeContextMenuStrip.Items.OfType<ToolStripMenuItem>())
@@ -205,8 +209,8 @@ namespace ReClassNET.Forms
 					}
 				}
 
-				this.toolStrip.ImageScalingSize = new Size((int)(this.toolStrip.ImageScalingSize.Width / 1.5), (int)(this.toolStrip.ImageScalingSize.Height / 1.5));
-				this.toolStrip.Height = (int)(this.toolStrip.Height / 1.5);
+				this.toolStrip.ImageScalingSize = new Size((int)(this.toolStrip.ImageScalingSize.Width / 1.4), (int)(this.toolStrip.ImageScalingSize.Height / 1.4));
+				this.toolStrip.Height = (int)(this.toolStrip.Height / 1.4);
 				this.toolStrip.AutoSize = false;
 
 				NamelessTheme.is_dark = false;
@@ -230,6 +234,10 @@ internal class NamelessTheme
 	internal static Color BackgrounColor = Color.FromArgb(24, 24, 24);
 	internal static Color SelectedColor = Color.FromArgb(40, 40, 40);
 	internal static Color ForegroundColor = Color.FromArgb(64, 64, 64);
+	internal static SolidBrush BackgrounColorBrush = new SolidBrush(BackgrounColor);
+	internal static SolidBrush SelectedColorBrush = new SolidBrush(SelectedColor);
+	internal static SolidBrush ForegroundColorBrush = new SolidBrush(ForegroundColor);
+
 	internal static bool is_init { get; private set; } = false;
 	internal static bool is_dark { get; set; } = false;
 	internal static Settings copy;
@@ -259,8 +267,7 @@ internal class NamelessTheme
 		return is_init;
 	}
 
-	//https://stackoverflow.com/a/15926450/12298228
-	internal class ToolStripCustomRenderer : ToolStripProfessionalRenderer
+	internal class ToolStripDarkRenderer : ToolStripProfessionalRenderer
 	{
 		protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
 		{
@@ -275,17 +282,11 @@ internal class NamelessTheme
 			int width = toolStripSeparator.Width;
 			int height = toolStripSeparator.Height;
 
-			// Choose the colors for drawing.
-			// I've used Color.White as the foreColor.
-			Color foreColor = toolStripSeparator.ForeColor;
-			// Color.Teal as the backColor.
-			Color backColor = toolStripSeparator.BackColor;
-
 			// Fill the background.
-			e.Graphics.FillRectangle(new SolidBrush(backColor), 0, 0, width, height);
+			e.Graphics.FillRectangle(BackgrounColorBrush, 0, 0, width, height);
 
 			// Draw the line.
-			e.Graphics.DrawLine(new Pen(foreColor), 4, height / 2, width - 4, height / 2);
+			e.Graphics.DrawLine(new Pen(toolStripSeparator.ForeColor), 4, height / 2, width - 4, height / 2);
 
 		}
 
@@ -293,13 +294,16 @@ internal class NamelessTheme
 		{
 			base.OnRenderMenuItemBackground(e);
 
-			var brush = new SolidBrush(BackgrounColor);
+			var brush = BackgrounColorBrush;
 
 			// Customize the background color when the item is selected, pressed
 			if (e.Item.Selected || e.Item.Pressed)
-				brush = new SolidBrush(SelectedColor);
+				brush = SelectedColorBrush;
 
 			e.Graphics.FillRectangle(brush, e.Item.ContentRectangle);
+
+			//Because attachToProcessToolStripSplitButton.DropDownItems are dynamically created ToolStripItems
+			e.Item.ForeColor = Color.White;
 		}
 	}
 }
