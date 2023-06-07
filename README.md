@@ -1,6 +1,6 @@
 # ReClass.NET
 This is a port of ReClass to the .NET platform with lots of additional features.
-Dark Theme by NamelessGod (About->Switch Theme)
+Edits by NamelessGod (Help->Switch Theme)
 
 ![](https://abload.de/img/main4hsbj.jpg)
 
